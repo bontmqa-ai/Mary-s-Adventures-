@@ -1,4 +1,4 @@
-name: "Final-Build-Action"
+name: "Sapphire-Hero-Final-Build"
 on: [push, workflow_dispatch]
 
 jobs:
@@ -8,21 +8,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: true # لدعم ملفاتك الكبيرة كما رأينا في Termux
 
       - name: Godot Android Export
         uses: firebelley/godot-export@v6.0.0
         with:
           godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
           godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
-          # قمنا بتحديد المسار كنقطة واحدة لضمان وصول المحرك لملف project.godot
-          relative_project_path: "." 
+          # التعديل الذهبي: ترك الخانة فارغة أو وضع نقطة واحدة فقط
+          relative_project_path: "."
           archive_output: true
-          # تأكد أن هذا الاسم "Android" مطابق تماماً لما هو مكتوب داخل ملف export_presets.cfg
+          # تأكد أن كلمة Android مكتوبة بنفس الطريقة في ملف export_presets.cfg
           presets_to_export: "Android"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SapphireHero-Game
+          name: SapphireHero-Game-Final
           path: /home/runner/.local/share/godot/archives/
