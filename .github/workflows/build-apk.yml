@@ -1,28 +1,28 @@
-name: "Final-Success-Build"
+name: "Final-Build-Action"
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  export-android:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          lfs: true # لدعم ملفات الـ Zip الكبيرة التي رأيناها
+          lfs: true
 
       - name: Godot Android Export
         uses: firebelley/godot-export@v6.0.0
         with:
           godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
           godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
-          # السيرفر سيبحث الآن بجانب ملف project.godot مباشرة
-          relative_project_path: "./"
+          # قمنا بتحديد المسار كنقطة واحدة لضمان وصول المحرك لملف project.godot
+          relative_project_path: "." 
           archive_output: true
-          # هذا التعديل يحل مشكلة Warning: Unexpected input في صورتك الأخيرة
-          presets_to_export: "Android" 
+          # تأكد أن هذا الاسم "Android" مطابق تماماً لما هو مكتوب داخل ملف export_presets.cfg
+          presets_to_export: "Android"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Sapphire-Hero-Game
+          name: SapphireHero-Game
           path: /home/runner/.local/share/godot/archives/
