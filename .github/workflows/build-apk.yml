@@ -1,4 +1,4 @@
-name: "Sapphire-Hero-Final-Build"
+name: "Final-Success-Build"
 on: [push, workflow_dispatch]
 
 jobs:
@@ -8,17 +8,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          lfs: true # لدعم ملفاتك الكبيرة مثل sapphire-hero-rewritten.7z
+          lfs: true # لدعم ملفات الـ Zip الكبيرة التي رأيناها
 
       - name: Godot Android Export
         uses: firebelley/godot-export@v6.0.0
         with:
           godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
           godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
-          # بما أن ملف project.godot في المجلد الرئيسي حسب صورتك
+          # السيرفر سيبحث الآن بجانب ملف project.godot مباشرة
           relative_project_path: "./"
-          export_preset: "Android"
           archive_output: true
+          # هذا التعديل يحل مشكلة Warning: Unexpected input في صورتك الأخيرة
+          presets_to_export: "Android" 
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
