@@ -1,0 +1,20 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/data/data/com.termux/files/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/data/data/com.termux/files/usr/bin/gh auth git-credential
+[safe]
+	directory = /storage/emulated/0/Documents/A/sapphire-hero-rewritten
+[user]
+	email = bontmqa@gmail.com
+	name = bontmqa
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[http]
+	postBuffer = 1048576000
+[core]
+	compression = 0
