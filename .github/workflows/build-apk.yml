@@ -1,22 +1,27 @@
-name: "تصدير اللعبة"
-on: [push, pull_request]
+name: "Sapphire-Hero-Final-Build"
+on: [push, workflow_dispatch]
 
 jobs:
-  export_game:
+  build:
     runs-on: ubuntu-latest
-    name: Export Game
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: true # لدعم ملفاتك الكبيرة مثل sapphire-hero-rewritten.7z
 
-      - name: export game
-        uses: firebelley/godot-export@v5.2.1
+      - name: Godot Android Export
+        uses: firebelley/godot-export@v6.0.0
         with:
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
-          # هنا التعديل الذكي: يخبر السيرفر بالدخول لمجلد المشروع
-          relative_project_path: "./مشروع مريم"
+          godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
+          # بما أن ملف project.godot في المجلد الرئيسي حسب صورتك
+          relative_project_path: "./"
+          export_preset: "Android"
           archive_output: true
-          export_debug: true
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sapphire-Hero-Game
+          path: /home/runner/.local/share/godot/archives/
