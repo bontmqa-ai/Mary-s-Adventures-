@@ -11,6 +11,10 @@ jobs:
         with:
           lfs: true
 
+      - name: Set Permissions
+        run: |
+          chmod +x Godot_v4.4-stable_linux.x86_64 2>/dev/null || true
+
       - name: export game
         uses: firebelley/godot-export@v5.2.1
         with:
